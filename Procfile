@@ -1,1 +1,1 @@
-web: python hangook_bot.py
+bot: python hangook_bot.py
