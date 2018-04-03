@@ -13,6 +13,8 @@ def start(message):
     markup.row('Курс валют', 'Погода')
     bot.send_message(message.chat.id, "Choose the command:",
                      reply_markup=markup)
+    bot.register_next_step_handler(message, commands)
+
 
 def commands(message):
     if message.text == 'Перевод на корейский':
