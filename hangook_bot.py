@@ -2,9 +2,10 @@ import config
 import telebot
 from telebot import types
 from googletrans import Translator
-
+from currency_converter import CurrencyConverter
 
 bot = telebot.TeleBot(config.token)
+api_key = 'eab141e5fc97f7e343f8e91ae3a52070'
 
 @bot.message_handler(commands=["start"])
 def start(message):
@@ -35,6 +36,13 @@ def translate_from_korean(message):
     translations = translator.translate([message.text], dest='ru')
     for translation in translations:
         bot.send_message(message.chat.id, translation.text)
+
+@bot.message_handler(commands=['Курс'])
+def input_message3(message):
+    c = CurrencyConverter()
+    rate = c.convert(1, 'USD', 'KRW')
+    todayrate = ('1 USD = ' + str(rate) + ' KRW')
+    bot.send_message(message.chat.id, todayrate)
 
 if __name__ == '__main__':
      bot.polling(none_stop=True)
