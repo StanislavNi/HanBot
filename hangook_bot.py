@@ -2,6 +2,7 @@ import config
 import telebot
 from telebot import types
 from googletrans import Translator
+import forecastio
 from currency_converter import CurrencyConverter
 
 bot = telebot.TeleBot(config.token)
@@ -34,6 +35,17 @@ def input_messages1(message):
 def translate_from_korean(message):
     translator = Translator()
     translations = translator.translate([message.text], dest='ru')
+    for translation in translations:
+        bot.send_message(message.chat.id, translation.text)
+
+@bot.message_handler(commands=['Погода'])
+def input_message2(message):
+    lat = '37.5667'
+    lng = '126.9783'
+    translator = Translator()
+    forecast = forecastio.load_forecast(api_key, lat, lng)
+    byDay = forecast.daily()
+    translations = translator.translate([byDay.summary], dest='ru')
     for translation in translations:
         bot.send_message(message.chat.id, translation.text)
 
