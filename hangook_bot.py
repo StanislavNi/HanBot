@@ -2,8 +2,9 @@ import config
 import telebot
 from telebot import types
 from googletrans import Translator
-import forecastio
 from currency_converter import CurrencyConverter
+from datetime import datetime
+import pyowm
 
 bot = telebot.TeleBot(config.token)
 api_key = 'eab141e5fc97f7e343f8e91ae3a52070'
@@ -40,12 +41,21 @@ def translate_from_korean(message):
 
 @bot.message_handler(commands=['Погода'])
 def input_message2(message):
-    lat = '37.5667'
-    lng = '126.9783'
+    owm = pyowm.OWM('69a45bfc061be421eb86bca86c8c9f36')
+    observation = owm.weather_at_place('Seoul,KR')
+    w = observation.get_weather()
+    weather = str(w) + '\n'\
+            + str(str(w.get_temperature('celsius')).split(',')[:-1]) + '\n'\
+            + 'Humidity:'+ str(w.get_humidity())+ '\n'\
+            + str(str(w.get_wind()).split(',')[:1])
+    weather = weather.split(',',1)[1].replace('status=','Weather status is ')
+    weather = weather.replace('temp','Temperature').replace('None','').\
+        replace('speed', 'Wind speed ').replace('wind','Wind speed ')
+    for char in weather:
+        if char in '{}''<>[]""':
+            weather = weather.replace(char,'')
     translator = Translator()
-    forecast = forecastio.load_forecast(api_key, lat, lng)
-    byDay = forecast.daily()
-    translations = translator.translate([byDay.summary], dest='ru')
+    translations = translator.translate([weather], dest='ru')
     for translation in translations:
         bot.send_message(message.chat.id, translation.text)
 
