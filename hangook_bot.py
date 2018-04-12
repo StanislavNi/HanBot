@@ -3,7 +3,6 @@ import telebot
 from telebot import types
 from googletrans import Translator
 from currency_converter import CurrencyConverter
-from datetime import datetime
 import pyowm
 
 bot = telebot.TeleBot(config.token)

@@ -11,6 +11,7 @@ idna==2.6
 oxr-client==0.1.0
 pycbrf==0.1.0
 PyCurrency-Converter==1.0
+pyowm==2.8.0
 pyTelegramBotAPI==3.6.2
 python-forecastio==1.4.0
 requests==2.18.4
