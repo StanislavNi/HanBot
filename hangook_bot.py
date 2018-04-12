@@ -45,8 +45,8 @@ def input_message2(message):
     w = observation.get_weather()
     weather = str(w) + '\n'\
             + str(str(w.get_temperature('celsius')).split(',')[:-1]) + '\n'\
-            + 'Humidity:'+ str(w.get_humidity())+ '\n'\
-            + str(str(w.get_wind()).split(',')[:1])
+            + 'Humidity:'+ str(w.get_humidity())+ ' percents'+ '\n'\
+            + str(str(w.get_wind()).split(',')[:1])+'m/s'
     weather = weather.split(',',1)[1].replace('status=','Weather status is ')
     weather = weather.replace('temp','Temperature').replace('None','').\
         replace('speed', 'Wind speed ').replace('wind','Wind speed ')
