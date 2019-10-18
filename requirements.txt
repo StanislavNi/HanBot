@@ -14,7 +14,7 @@ PyCurrency-Converter==1.0
 pyowm==2.8.0
 pyTelegramBotAPI==3.6.2
 python-forecastio==1.4.0
-requests==2.18.4
+requests==2.20.0
 responses==0.9.0
 simplejson==3.13.2
 six==1.11.0
